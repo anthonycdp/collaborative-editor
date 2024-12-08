@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collaborative Editor</title>
+  <link rel="stylesheet" href="./styles.css">
+  <!-- Quill Editor Styles -->
+  <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+  <link href="https://cdn.quilljs.com/1.3.7/quill.bubble.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="logo">Collab Editor</h1>
+        <span class="room-badge" id="roomBadge">Room: default</span>
+      </div>
+      <div class="header-right">
+        <div class="connection-status" id="connectionStatus">
+          <span class="status-dot status-disconnected"></span>
+          <span class="status-text">Disconnected</span>
+        </div>
+        <div class="user-info" id="userInfo">
+          <div class="user-avatar" id="userAvatar">?</div>
+          <span class="user-name" id="userName">Anonymous</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Sidebar - Presence Panel -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Online Users</h3>
+          <ul class="user-list" id="userList">
+            <!-- Populated dynamically -->
+          </ul>
+        </div>
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Rooms</h3>
+          <div class="room-actions">
+            <input
+              type="text"
+              class="room-input"
+              id="roomInput"
+              placeholder="Enter room name..."
+            >
+            <button class="btn btn-primary" id="joinRoomBtn">Join Room</button>
+          </div>
+          <ul class="room-list" id="roomList">
+            <!-- Populated dynamically -->
+          </ul>
+        </div>
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Document Info</h3>
+          <div class="document-info" id="documentInfo">
+            <div class="info-row">
+              <span class="info-label">Size:</span>
+              <span class="info-value" id="docSize">0 B</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Characters:</span>
+              <span class="info-value" id="docChars">0</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Words:</span>
+              <span class="info-value" id="docWords">0</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Editor Area -->
+      <div class="editor-container">
+        <!-- Quill Toolbar -->
+        <div id="toolbar">
+          <span class="ql-formats">
+            <select class="ql-header">
+              <option value="1">Heading</option>
+              <option value="2">Subheading</option>
+              <option value="3">Sub-subheading</option>
+              <option selected>Normal</option>
+            </select>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <button class="ql-strike"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+            <button class="ql-indent" value="-1"></button>
+            <button class="ql-indent" value="+1"></button>
+          </span>
+          <span class="ql-formats">
+            <select class="ql-color"></select>
+            <select class="ql-background"></select>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-link"></button>
+            <button class="ql-code-block"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-clean"></button>
+          </span>
+        </div>
+
+        <!-- Editor -->
+        <div id="editor">
+          <p>Start collaborating...</p>
+        </div>
+
+        <!-- Sync Status -->
+        <div class="sync-status" id="syncStatus">
+          <span class="sync-indicator" id="syncIndicator"></span>
+          <span class="sync-text" id="syncText">Ready</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="./main.ts"></script>
+  </div>
+</body>
+</html>
